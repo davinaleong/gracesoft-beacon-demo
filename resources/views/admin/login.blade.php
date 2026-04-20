@@ -1,39 +1,43 @@
-@extends('layouts.beacon')
+@extends('layouts.gracesoft-auth')
 
 @section('title', 'Admin Login')
 
 @section('content')
-    <section class="mx-auto max-w-md rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Admin Access</p>
-        <h1 class="mt-2 font-['Newsreader'] text-4xl text-slate-900">Sign In</h1>
-        <p class="mt-2 text-sm text-slate-600">Use the seeded demo admin account to access submissions.</p>
+    <div class="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
+        Secure access
+        <p class="mt-1 text-emerald-700">Enter your admin credentials to continue.</p>
+    </div>
 
-        @if ($errors->any())
-            <div class="mt-5 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
-                Invalid login details.
-            </div>
-        @endif
+    <h2 class="mt-4 text-4xl font-bold tracking-tight text-slate-900">Admin sign in</h2>
+    <p class="mt-1 text-sm text-slate-600">Use the seeded demo admin account to access submissions.</p>
 
-        <form method="POST" action="{{ route('admin.login.store') }}" class="mt-6 space-y-4">
-            @csrf
-            <div class="space-y-1">
-                <label for="email" class="text-sm font-medium text-slate-700">Email</label>
-                <input id="email" type="email" name="email" value="{{ old('email') }}" required
-                    class="w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100" />
-            </div>
+    @if ($errors->any())
+        <div class="mt-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
+            Invalid login details.
+        </div>
+    @endif
 
-            <div class="space-y-1">
-                <label for="password" class="text-sm font-medium text-slate-700">Password</label>
-                <input id="password" type="password" name="password" required
-                    class="w-full rounded-xl border border-slate-200 px-3 py-2.5 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100" />
-            </div>
+    <form method="POST" action="{{ route('admin.login.store') }}" class="mt-6 space-y-4">
+        @csrf
+        <div class="space-y-1">
+            <label for="email" class="text-sm font-semibold text-slate-700">Email</label>
+            <input id="email" type="email" name="email" value="{{ old('email') }}" required class="gs-control" />
+        </div>
 
-            <button type="submit"
-                class="inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-5 py-3 font-semibold text-white transition hover:bg-slate-800">
-                Login
-            </button>
+        <div class="space-y-1">
+            <label for="password" class="text-sm font-semibold text-slate-700">Password</label>
+            <input id="password" type="password" name="password" required class="gs-control" />
+        </div>
 
-            <p class="text-xs text-slate-500">Demo credential: admin@beacon-demo.test / password</p>
-        </form>
-    </section>
+        <button type="submit" class="gs-btn-primary w-full">
+            Sign in
+        </button>
+
+        <p class="rounded-lg border border-slate-200 px-4 py-2 text-center text-xs text-slate-500">
+            Demo credential: admin@beacon-demo.test / password
+        </p>
+    </form>
+
+    <p class="mt-5 border-t border-slate-200 pt-4 text-xs text-slate-500">&copy; {{ now()->year }} GraceSoft HQ. All
+        rights reserved.</p>
 @endsection

@@ -326,6 +326,7 @@ php artisan beacon:cleanup
   * [x] primary (submit)
   * [x] danger (delete)
 * [x] Spacing system (consistent padding/margins)
+* [x] Frontend form, auth pages, and admin panel share one visual system
 
 ---
 

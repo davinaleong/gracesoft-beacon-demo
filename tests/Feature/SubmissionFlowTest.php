@@ -3,6 +3,7 @@
 use App\Models\Submission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
 uses(RefreshDatabase::class);
@@ -46,4 +47,20 @@ test('submission requires a message and rejects invalid file type', function () 
 
     $response->assertRedirect(route('submit.create'));
     $response->assertSessionHasErrors(['message', 'attachment']);
+});
+
+test('submission expiry uses configured retention minutes', function () {
+    Config::set('beacon.retention_minutes', 30);
+
+    $this->post(route('submit.store'), [
+        'name' => 'Demo User',
+        'email' => 'demo@example.com',
+        'message' => 'Configured retention check.',
+        'website' => '',
+    ])->assertStatus(302);
+
+    $submission = Submission::query()->latest('created_at')->first();
+
+    expect($submission)->not->toBeNull();
+    expect((int) abs($submission->expires_at->diffInMinutes($submission->created_at)))->toBe(30);
 });

@@ -6,6 +6,43 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Montserrat', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: 'Playfair Display', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+    --font-mono: 'Source Code Pro', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+        'Courier New', monospace;
+}
+
+@layer components {
+    .gs-app-bg {
+        @apply bg-slate-100 text-slate-900;
+    }
+
+    .gs-top-banner {
+        @apply bg-[#352AA6] px-4 py-1.5 text-center text-xs font-semibold tracking-wide text-cyan-50;
+    }
+
+    .gs-shell {
+        @apply mx-auto w-full max-w-7xl px-4 sm:px-6;
+    }
+
+    .gs-card {
+        @apply rounded-md border border-slate-300 bg-white;
+    }
+
+    .gs-control {
+        @apply w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[#352AA6] focus:ring-2 focus:ring-indigo-100;
+    }
+
+    .gs-btn-primary {
+        @apply inline-flex items-center justify-center rounded-md bg-[#352AA6] px-5 py-2.5 font-semibold text-white transition hover:bg-[#2f2398] disabled:cursor-not-allowed disabled:opacity-70;
+    }
+
+    .gs-btn-outline {
+        @apply inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-50;
+    }
+
+    .gs-btn-outline-brand {
+        @apply inline-flex items-center justify-center rounded-md border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-semibold text-indigo-700 transition hover:bg-indigo-100;
+    }
 }

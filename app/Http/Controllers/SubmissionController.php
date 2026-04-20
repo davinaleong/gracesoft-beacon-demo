@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSubmissionRequest;
 use App\Models\Submission;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -18,14 +19,22 @@ class SubmissionController extends Controller
     public function store(StoreSubmissionRequest $request): RedirectResponse
     {
         $validated = $request->validated();
+        $retentionMinutes = (int) config('beacon.retention_minutes', 24 * 60);
 
         $filePath = null;
+        $attachment = $validated['attachment'] ?? null;
 
-        if ($request->hasFile('attachment')) {
-            $extension = $request->file('attachment')->getClientOriginalExtension();
-            $filePath = $request->file('attachment')->storeAs(
+        if ($attachment instanceof UploadedFile && $attachment->isValid() && $attachment->getRealPath()) {
+            $extension = $attachment->getClientOriginalExtension() ?: $attachment->extension();
+            $filename = (string) Str::uuid();
+
+            if (filled($extension)) {
+                $filename .= '.'.$extension;
+            }
+
+            $filePath = $attachment->storeAs(
                 'private/submissions',
-                sprintf('%s.%s', (string) Str::uuid(), $extension),
+                $filename,
                 'local',
             );
         }
@@ -35,7 +44,7 @@ class SubmissionController extends Controller
             'email' => $validated['email'] ?? null,
             'message' => $validated['message'],
             'file_path' => $filePath,
-            'expires_at' => now()->addHours(24),
+            'expires_at' => now()->addMinutes(max($retentionMinutes, 1)),
         ]);
 
         return to_route('submit.create')->with('submission_created', [
