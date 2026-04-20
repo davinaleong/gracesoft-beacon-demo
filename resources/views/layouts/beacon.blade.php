@@ -53,6 +53,8 @@
     <main class="gs-shell pb-16 lg:px-8">
         @yield('content')
     </main>
+
+    @include('partials.lighthouse-links')
 </body>
 
 </html>

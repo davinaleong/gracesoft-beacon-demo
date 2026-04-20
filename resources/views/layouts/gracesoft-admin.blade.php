@@ -104,6 +104,8 @@
             </div>
         </main>
     </div>
+
+    @include('partials.lighthouse-links')
 </body>
 
 </html>

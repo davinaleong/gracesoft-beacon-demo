@@ -43,6 +43,8 @@
             </section>
         </div>
     </div>
+
+    @include('partials.lighthouse-links')
 </body>
 
 </html>
