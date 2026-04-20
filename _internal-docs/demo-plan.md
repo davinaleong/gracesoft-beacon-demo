@@ -4,13 +4,13 @@
 
 Before anything, enforce these across all milestones:
 
-* [ ] No analytics / trackers (no GA, no cookies except session)
-* [ ] All data marked as **demo data**
-* [ ] Auto-delete after **≤ 24–48 hours** (NOT 30 days for demo)
-* [ ] File uploads restricted (size + type)
-* [ ] Clear disclaimer: *“Do not submit real sensitive information”*
-* [ ] Admin access protected (basic auth or seeded account)
-* [ ] Disable email sending (log only)
+* [x] No analytics / trackers (no GA, no cookies except session)
+* [x] All data marked as **demo data**
+* [x] Auto-delete after **≤ 24–48 hours** (NOT 30 days for demo)
+* [x] File uploads restricted (size + type)
+* [x] Clear disclaimer: *“Do not submit real sensitive information”*
+* [x] Admin access protected (basic auth or seeded account)
+* [x] Disable email sending (log only)
 
 ---
 
@@ -18,27 +18,27 @@ Before anything, enforce these across all milestones:
 
 ### Backend Setup
 
-* [ ] Laravel project initialized
-* [ ] SQLite or MySQL configured
-* [ ] UUID setup for primary keys
-* [ ] `submissions` table migration:
+* [x] Laravel project initialized
+* [x] SQLite or MySQL configured
+* [x] UUID setup for primary keys
+* [x] `submissions` table migration:
 
-  * [ ] id (uuid)
-  * [ ] name (nullable)
-  * [ ] email (nullable)
-  * [ ] message (text)
-  * [ ] file_path (nullable)
-  * [ ] expires_at (datetime)
-  * [ ] created_at
+  * [x] id (uuid)
+  * [x] name (nullable)
+  * [x] email (nullable)
+  * [x] message (text)
+  * [x] file_path (nullable)
+  * [x] expires_at (datetime)
+  * [x] created_at
 
 ### Security Defaults
 
-* [ ] CSRF protection enabled
-* [ ] Validation rules scaffolded
-* [ ] File storage configured:
+* [x] CSRF protection enabled
+* [x] Validation rules scaffolded
+* [x] File storage configured:
 
-  * [ ] `/storage/app/private`
-  * [ ] symbolic link NOT exposed
+  * [x] `/storage/app/private`
+  * [x] symbolic link NOT exposed
 
 ---
 
@@ -46,7 +46,7 @@ Before anything, enforce these across all milestones:
 
 ## Route
 
-* [ ] `/submit`
+* [x] `/submit`
 
 ---
 
@@ -54,67 +54,67 @@ Before anything, enforce these across all milestones:
 
 ### 1. Hero Section
 
-* [ ] Title: **“Secure. Private. No Tracking.”**
-* [ ] Subtitle explaining purpose
-* [ ] Soft, calm UI (no aggressive CTAs)
+* [x] Title: **“Secure. Private. No Tracking.”**
+* [x] Subtitle explaining purpose
+* [x] Soft, calm UI (no aggressive CTAs)
 
 ---
 
 ### 2. Trust Banner (Core Differentiator)
 
-* [ ] Display clearly:
+* [x] Display clearly:
 
-  * [ ] “We do NOT track you”
-  * [ ] “Data auto-deletes within 24–48 hours”
-  * [ ] “Anonymous submission allowed”
-  * [ ] “Do NOT submit sensitive personal data (Demo Only)”
-* [ ] Use icons or checkmarks for clarity
+  * [x] “We do NOT track you”
+  * [x] “Data auto-deletes within 24–48 hours”
+  * [x] “Anonymous submission allowed”
+  * [x] “Do NOT submit sensitive personal data (Demo Only)”
+* [x] Use icons or checkmarks for clarity
 
 ---
 
 ### 3. Form UI
 
-* [ ] Name input (optional)
-* [ ] Email input (optional)
-* [ ] Message textarea (required)
-* [ ] File upload (optional)
+* [x] Name input (optional)
+* [x] Email input (optional)
+* [x] Message textarea (required)
+* [x] File upload (optional)
 
 ---
 
 ### 4. Form UX States
 
-* [ ] Inline validation errors
-* [ ] Disabled submit button on submit
-* [ ] Loading state (“Submitting…”)
-* [ ] Success state page or alert:
+* [x] Inline validation errors
+* [x] Disabled submit button on submit
+* [x] Loading state (“Submitting…”)
+* [x] Success state page or alert:
 
-  * [ ] “Submission received”
-  * [ ] Show expiry time
+  * [x] “Submission received”
+  * [x] Show expiry time
 
 ---
 
 ### 5. Data Policy Note
 
-* [ ] Short paragraph:
+* [x] Short paragraph:
 
-  * [ ] No tracking
-  * [ ] Temporary storage only
-  * [ ] Demo disclaimer
+  * [x] No tracking
+  * [x] Temporary storage only
+  * [x] Demo disclaimer
 
 ---
 
 ## 🔒 Backend Checklist
 
-* [ ] Validate inputs:
+* [x] Validate inputs:
 
-  * [ ] message required
-  * [ ] email format if present
-* [ ] File upload rules:
+  * [x] message required
+  * [x] email format if present
+* [x] File upload rules:
 
-  * [ ] max size (e.g. 2MB)
-  * [ ] allowed types (pdf, jpg, png only)
-* [ ] Store file with UUID filename
-* [ ] Set:
+  * [x] max size (e.g. 2MB)
+  * [x] allowed types (pdf, jpg, png only)
+* [x] Store file with UUID filename
+* [x] Set:
 
 ```php
 expires_at = now()->addHours(24);
@@ -126,27 +126,27 @@ expires_at = now()->addHours(24);
 
 ## Route
 
-* [ ] `/admin/login`
+* [x] `/admin/login`
 
 ---
 
 ### UI Checklist
 
-* [ ] Minimal login form:
+* [x] Minimal login form:
 
-  * [ ] email
-  * [ ] password
-* [ ] Error state (invalid login)
-* [ ] Clean, no branding clutter
+  * [x] email
+  * [x] password
+* [x] Error state (invalid login)
+* [x] Clean, no branding clutter
 
 ---
 
 ### Backend Checklist
 
-* [ ] Seed demo admin account
-* [ ] Use Laravel auth (no roles needed)
-* [ ] Session-based login
-* [ ] Rate limit login attempts
+* [x] Seed demo admin account
+* [x] Use Laravel auth (no roles needed)
+* [x] Session-based login
+* [x] Rate limit login attempts
 
 ---
 
@@ -154,7 +154,7 @@ expires_at = now()->addHours(24);
 
 ## Route
 
-* [ ] `/admin/submissions`
+* [x] `/admin/submissions`
 
 ---
 
@@ -162,41 +162,41 @@ expires_at = now()->addHours(24);
 
 ### Table View
 
-* [ ] Columns:
+* [x] Columns:
 
-  * [ ] ID (shortened UUID)
-  * [ ] Message preview (truncate)
-  * [ ] File indicator (icon / yes/no)
-  * [ ] Created at
-  * [ ] Expiry time
+  * [x] ID (shortened UUID)
+  * [x] Message preview (truncate)
+  * [x] File indicator (icon / yes/no)
+  * [x] Created at
+  * [x] Expiry time
 
 ---
 
 ### UX Features
 
-* [ ] Click row → detail page
-* [ ] Empty state:
+* [x] Click row → detail page
+* [x] Empty state:
 
-  * [ ] “No submissions yet”
-* [ ] Expiry indicator:
+  * [x] “No submissions yet”
+* [x] Expiry indicator:
 
-  * [ ] Red if <6 hours left
-  * [ ] Grey if expired
+  * [x] Red if <6 hours left
+  * [x] Grey if expired
 
 ---
 
 ### Controls
 
-* [ ] Manual delete button per row
+* [x] Manual delete button per row
 * [ ] Bulk delete (optional stretch)
 
 ---
 
 ## 🔒 Backend Checklist
 
-* [ ] Auth middleware enforced
-* [ ] Paginate results
-* [ ] Filter out expired records (or mark clearly)
+* [x] Auth middleware enforced
+* [x] Paginate results
+* [x] Filter out expired records (or mark clearly)
 
 ---
 
@@ -204,7 +204,7 @@ expires_at = now()->addHours(24);
 
 ## Route
 
-* [ ] `/admin/submissions/{id}`
+* [x] `/admin/submissions/{id}`
 
 ---
 
@@ -212,38 +212,38 @@ expires_at = now()->addHours(24);
 
 ### Content Display
 
-* [ ] Full message (formatted)
-* [ ] Name/email (if present)
-* [ ] Metadata:
+* [x] Full message (formatted)
+* [x] Name/email (if present)
+* [x] Metadata:
 
-  * [ ] Created at
-  * [ ] Expiry time
+  * [x] Created at
+  * [x] Expiry time
 
 ---
 
 ### File Handling
 
-* [ ] Download button
-* [ ] No direct file URL exposure
+* [x] Download button
+* [x] No direct file URL exposure
 
 ---
 
 ### Actions
 
-* [ ] Delete button
-* [ ] Confirmation modal:
+* [x] Delete button
+* [x] Confirmation modal:
 
-  * [ ] “This will permanently delete the submission”
+  * [x] “This will permanently delete the submission”
 
 ---
 
 ## 🔒 Backend Checklist
 
-* [ ] Secure file route:
+* [x] Secure file route:
 
-  * [ ] `/admin/files/{id}`
-  * [ ] Auth check
-  * [ ] Stream file (no public link)
+  * [x] `/admin/files/{id}`
+  * [x] Auth check
+  * [x] Stream file (no public link)
 
 ---
 
@@ -255,33 +255,33 @@ expires_at = now()->addHours(24);
 
 ### Artisan Command
 
-* [ ] Create:
+* [x] Create:
 
 ```bash
 php artisan beacon:cleanup
 ```
 
-* [ ] Deletes:
+* [x] Deletes:
 
-  * [ ] expired submissions
-  * [ ] associated files
+  * [x] expired submissions
+  * [x] associated files
 
 ---
 
 ### Scheduler
 
-* [ ] Run every hour
+* [x] Run every hour
 
 ---
 
 ## UI Reinforcement
 
-* [ ] Show expiry message:
+* [x] Show expiry message:
 
-  * [ ] “This record will be deleted at: …”
-* [ ] Expired records:
+  * [x] “This record will be deleted at: …”
+* [x] Expired records:
 
-  * [ ] auto-hidden OR marked clearly
+  * [x] auto-hidden OR marked clearly
 
 ---
 
@@ -291,20 +291,20 @@ php artisan beacon:cleanup
 
 ## Prevent Real Usage
 
-* [ ] Banner across app:
+* [x] Banner across app:
 
-  * [ ] “Demo Environment — Do NOT submit sensitive data”
-* [ ] Optional:
+  * [x] “Demo Environment — Do NOT submit sensitive data”
+* [x] Optional:
 
-  * [ ] Auto-generate fake sample submissions
+  * [x] Auto-generate fake sample submissions
 
 ---
 
 ## Abuse Protection
 
-* [ ] Rate limit form submissions
-* [ ] Honeypot field (hidden input)
-* [ ] File upload throttling
+* [x] Rate limit form submissions
+* [x] Honeypot field (hidden input)
+* [x] File upload throttling
 
 ---
 
@@ -320,27 +320,27 @@ php artisan beacon:cleanup
 
 ## Visual Consistency
 
-* [ ] Typography scale (clear hierarchy)
-* [ ] Button styles:
+* [x] Typography scale (clear hierarchy)
+* [x] Button styles:
 
-  * [ ] primary (submit)
-  * [ ] danger (delete)
-* [ ] Spacing system (consistent padding/margins)
+  * [x] primary (submit)
+  * [x] danger (delete)
+* [x] Spacing system (consistent padding/margins)
 
 ---
 
 ## Trust-Driven UX
 
-* [ ] No dark patterns
-* [ ] No forced inputs
-* [ ] Clear language (non-technical)
+* [x] No dark patterns
+* [x] No forced inputs
+* [x] Clear language (non-technical)
 
 ---
 
 ## Responsiveness
 
-* [ ] Mobile-friendly form
-* [ ] Table scroll on small screens
+* [x] Mobile-friendly form
+* [x] Table scroll on small screens
 
 ---
 
