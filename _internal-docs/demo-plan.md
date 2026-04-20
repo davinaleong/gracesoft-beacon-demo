@@ -1,284 +1,363 @@
-# 🧭 1. Strategy: What This “Simulated Product” Is
+# 🚀 GraceSoft Beacon Lite — Deployable Demo Milestone Checklist
 
-This is NOT:
+## 🧭 Guiding Constraints (Non-Negotiable)
 
-> a full CMS
+Before anything, enforce these across all milestones:
 
-This IS:
-
-> a **“Beacon Demo App”** — a thin, believable layer that demonstrates:
-
-* Secure forms
-* Privacy-first messaging
-* Admin handling sensitive data
-* Data lifecycle (delete/expire)
-
-👉 Think of it as:
-
-> **“Beacon Lite (Proof of Trust)”**
+* [ ] No analytics / trackers (no GA, no cookies except session)
+* [ ] All data marked as **demo data**
+* [ ] Auto-delete after **≤ 24–48 hours** (NOT 30 days for demo)
+* [ ] File uploads restricted (size + type)
+* [ ] Clear disclaimer: *“Do not submit real sensitive information”*
+* [ ] Admin access protected (basic auth or seeded account)
+* [ ] Disable email sending (log only)
 
 ---
 
-# 🧱 2. Simplest Tech Stack (Speed > Purity)
+# 🧱 Milestone 1 — Foundation Setup (1 Day)
 
-You want **maximum speed, minimum thinking overhead**:
+### Backend Setup
 
-### ✅ Recommended Stack
+* [ ] Laravel project initialized
+* [ ] SQLite or MySQL configured
+* [ ] UUID setup for primary keys
+* [ ] `submissions` table migration:
 
-* **Laravel (monolith, no modules yet)**
-* Blade (no React, no Livewire for now)
-* SQLite (or MySQL if already set up)
-* Local file storage (but structured securely)
-* Tailwind (optional, or just simple CSS)
+  * [ ] id (uuid)
+  * [ ] name (nullable)
+  * [ ] email (nullable)
+  * [ ] message (text)
+  * [ ] file_path (nullable)
+  * [ ] expires_at (datetime)
+  * [ ] created_at
 
-👉 Why:
+### Security Defaults
 
-* You already know Laravel deeply
-* No context switching
-* Fastest path to something demo-able
+* [ ] CSRF protection enabled
+* [ ] Validation rules scaffolded
+* [ ] File storage configured:
 
----
-
-# 🧩 3. The Demo Concept (What You’re “Selling”)
-
-## 🎯 Demo Product Name Ideas
-
-* Beacon Demo
-* Beacon Trust Portal
-* GraceSoft Beacon Lite
-* “Secure Submission Portal”
+  * [ ] `/storage/app/private`
+  * [ ] symbolic link NOT exposed
 
 ---
 
-## 💡 Core Demo Story
+# 📝 Milestone 2 — Public Submission Page (Deploy-Ready UI)
 
-> “This is how an organisation can safely collect sensitive data without tracking users.”
+## Route
 
-Tie it directly to your deck:
-
-> “A CMS that protects your community” 
+* [ ] `/submit`
 
 ---
 
-# 🧪 4. Demo Features (Keep It VERY Focused)
+## 🎨 UI Checklist (Public Page)
 
-## 🔹 Public Side (1 Page Only)
+### 1. Hero Section
 
-### 📝 Secure Form Page
-
-Fields:
-
-* Name (optional)
-* Email (optional)
-* Message (required)
-* File upload (optional)
-
-### 🧠 Trust UX (VERY IMPORTANT)
-
-This is your differentiator:
-
-Display clearly:
-
-* ✅ “We do NOT track you”
-* ✅ “Your data will be deleted in 30 days”
-* ✅ “You may submit anonymously”
-* ✅ “Files are stored securely and not publicly accessible”
-
-👉 This directly addresses gaps you identified:
-
-* weak form security
-* lack of transparency 
+* [ ] Title: **“Secure. Private. No Tracking.”**
+* [ ] Subtitle explaining purpose
+* [ ] Soft, calm UI (no aggressive CTAs)
 
 ---
 
-## 🔹 Admin Side (1–2 Pages Only)
+### 2. Trust Banner (Core Differentiator)
 
-### 🔐 Admin Login (basic)
+* [ ] Display clearly:
 
-### 📊 Submissions Dashboard
-
-Table:
-
-* ID (UUID)
-* Message preview
-* Has file? (yes/no)
-* Created at
-* Expiry date
-
-### 📂 View Submission
-
-* Full message
-* Download file (via secure route)
-* Delete button
+  * [ ] “We do NOT track you”
+  * [ ] “Data auto-deletes within 24–48 hours”
+  * [ ] “Anonymous submission allowed”
+  * [ ] “Do NOT submit sensitive personal data (Demo Only)”
+* [ ] Use icons or checkmarks for clarity
 
 ---
 
-# 🔐 5. “Fake but Real” Security Layer
+### 3. Form UI
 
-Even though it’s a demo, it must FEEL legit.
-
-## ✅ Do This
-
-### File Upload
-
-* store in `/storage/app/private`
-* random filename (UUID)
-* NEVER expose direct URL
-
-### File Access
-
-* `/admin/files/{id}` route
-* check admin auth
-* stream file
+* [ ] Name input (optional)
+* [ ] Email input (optional)
+* [ ] Message textarea (required)
+* [ ] File upload (optional)
 
 ---
 
-### Data Lifecycle (Simple Version)
+### 4. Form UX States
 
-* Add column: `expires_at`
-* Set:
+* [ ] Inline validation errors
+* [ ] Disabled submit button on submit
+* [ ] Loading state (“Submitting…”)
+* [ ] Success state page or alert:
+
+  * [ ] “Submission received”
+  * [ ] Show expiry time
+
+---
+
+### 5. Data Policy Note
+
+* [ ] Short paragraph:
+
+  * [ ] No tracking
+  * [ ] Temporary storage only
+  * [ ] Demo disclaimer
+
+---
+
+## 🔒 Backend Checklist
+
+* [ ] Validate inputs:
+
+  * [ ] message required
+  * [ ] email format if present
+* [ ] File upload rules:
+
+  * [ ] max size (e.g. 2MB)
+  * [ ] allowed types (pdf, jpg, png only)
+* [ ] Store file with UUID filename
+* [ ] Set:
 
 ```php
-now()->addDays(30)
+expires_at = now()->addHours(24);
 ```
-
-* Show in UI:
-
-> “This data will be deleted on…”
 
 ---
 
-### Optional (Nice Touch)
+# 🔐 Milestone 3 — Admin Authentication (Simple + Safe)
 
-Create command:
+## Route
+
+* [ ] `/admin/login`
+
+---
+
+### UI Checklist
+
+* [ ] Minimal login form:
+
+  * [ ] email
+  * [ ] password
+* [ ] Error state (invalid login)
+* [ ] Clean, no branding clutter
+
+---
+
+### Backend Checklist
+
+* [ ] Seed demo admin account
+* [ ] Use Laravel auth (no roles needed)
+* [ ] Session-based login
+* [ ] Rate limit login attempts
+
+---
+
+# 📊 Milestone 4 — Admin Dashboard (Interactive Demo Core)
+
+## Route
+
+* [ ] `/admin/submissions`
+
+---
+
+## 🎨 UI Checklist (Dashboard)
+
+### Table View
+
+* [ ] Columns:
+
+  * [ ] ID (shortened UUID)
+  * [ ] Message preview (truncate)
+  * [ ] File indicator (icon / yes/no)
+  * [ ] Created at
+  * [ ] Expiry time
+
+---
+
+### UX Features
+
+* [ ] Click row → detail page
+* [ ] Empty state:
+
+  * [ ] “No submissions yet”
+* [ ] Expiry indicator:
+
+  * [ ] Red if <6 hours left
+  * [ ] Grey if expired
+
+---
+
+### Controls
+
+* [ ] Manual delete button per row
+* [ ] Bulk delete (optional stretch)
+
+---
+
+## 🔒 Backend Checklist
+
+* [ ] Auth middleware enforced
+* [ ] Paginate results
+* [ ] Filter out expired records (or mark clearly)
+
+---
+
+# 📂 Milestone 5 — Submission Detail Page
+
+## Route
+
+* [ ] `/admin/submissions/{id}`
+
+---
+
+## 🎨 UI Checklist
+
+### Content Display
+
+* [ ] Full message (formatted)
+* [ ] Name/email (if present)
+* [ ] Metadata:
+
+  * [ ] Created at
+  * [ ] Expiry time
+
+---
+
+### File Handling
+
+* [ ] Download button
+* [ ] No direct file URL exposure
+
+---
+
+### Actions
+
+* [ ] Delete button
+* [ ] Confirmation modal:
+
+  * [ ] “This will permanently delete the submission”
+
+---
+
+## 🔒 Backend Checklist
+
+* [ ] Secure file route:
+
+  * [ ] `/admin/files/{id}`
+  * [ ] Auth check
+  * [ ] Stream file (no public link)
+
+---
+
+# ♻️ Milestone 6 — Data Lifecycle (CRITICAL for Trust Demo)
+
+---
+
+## Cleanup Logic
+
+### Artisan Command
+
+* [ ] Create:
 
 ```bash
 php artisan beacon:cleanup
 ```
 
-Deletes expired records
+* [ ] Deletes:
 
-👉 This reinforces your:
-
-> “Data lifecycle” concept 
-
----
-
-# 🗂 6. Minimal Database Design
-
-### `submissions`
-
-* id (uuid)
-* name (nullable)
-* email (nullable)
-* message (text)
-* file_path (nullable)
-* expires_at (datetime)
-* created_at
+  * [ ] expired submissions
+  * [ ] associated files
 
 ---
 
-# 🖥 7. UI Structure (Super Lean)
+### Scheduler
 
-## Public
-
-```
-/submit
-```
-
-Sections:
-
-1. Hero:
-   “Secure. Private. No Tracking.”
-2. Trust statements
-3. Form
-4. Data policy note
+* [ ] Run every hour
 
 ---
 
-## Admin
+## UI Reinforcement
 
-```
-/admin/login
-/admin/submissions
-/admin/submissions/{id}
-```
+* [ ] Show expiry message:
 
----
+  * [ ] “This record will be deleted at: …”
+* [ ] Expired records:
 
-# 🎨 8. UX Tone (VERY IMPORTANT)
-
-Match your positioning:
-
-From your doc:
-
-> “Privacy-first, modular, trust-driven infrastructure” 
-
-So your UI should feel:
-
-* Calm
-* Clear
-* No dark patterns
-* No “growth hacking”
+  * [ ] auto-hidden OR marked clearly
 
 ---
 
-# ⚡ 9. What You SHOULD NOT Build (Yet)
-
-Avoid overengineering:
-
-❌ Modules system
-❌ GraphQL
-❌ Multi-tenancy
-❌ Roles/permissions complexity
-❌ Notifications
-❌ Analytics
-
-👉 That’s Core + Services later
+# 🛡 Milestone 7 — Demo Safety Hardening (VERY IMPORTANT)
 
 ---
 
-# 🧭 10. How This Buys You Time (Strategically)
+## Prevent Real Usage
 
-This demo lets you:
+* [ ] Banner across app:
 
-### 1. Show something real
+  * [ ] “Demo Environment — Do NOT submit sensitive data”
+* [ ] Optional:
 
-Instead of slides only
-
-### 2. Validate messaging
-
-Do people respond to:
-
-* “No tracking”
-* “Auto-delete”
-
-### 3. Start conversations
-
-You can say:
-
-> “This is a simplified version of Beacon — the full system is modular and enterprise-ready.”
+  * [ ] Auto-generate fake sample submissions
 
 ---
 
-# 🧩 11. Positioning Script (Use This When Showing)
+## Abuse Protection
 
-You can literally say:
-
-> “Most systems focus on collecting more data.
-> Beacon focuses on **protecting the data you already have.**”
+* [ ] Rate limit form submissions
+* [ ] Honeypot field (hidden input)
+* [ ] File upload throttling
 
 ---
 
-# 🚀 12. Optional Next Step (If You Want)
+## Logging (Optional)
 
-I can help you:
+* [ ] Log actions (no personal data analysis)
 
-* Draft the **actual Blade UI (copy + layout)**
-* Generate:
+---
 
-  * Controller
-  * Migration
-  * Routes
-  * File upload logic
-* OR simulate the **admin panel UI like HQ style**
+# 🎨 Milestone 8 — UX Polish (Client-Ready)
+
+---
+
+## Visual Consistency
+
+* [ ] Typography scale (clear hierarchy)
+* [ ] Button styles:
+
+  * [ ] primary (submit)
+  * [ ] danger (delete)
+* [ ] Spacing system (consistent padding/margins)
+
+---
+
+## Trust-Driven UX
+
+* [ ] No dark patterns
+* [ ] No forced inputs
+* [ ] Clear language (non-technical)
+
+---
+
+## Responsiveness
+
+* [ ] Mobile-friendly form
+* [ ] Table scroll on small screens
+
+---
+
+# 🚀 Final Deliverable (What You’ll Have)
+
+A **deployable Beacon Lite demo** that:
+
+* Feels real (clients can interact)
+* Demonstrates:
+
+  * secure submissions
+  * privacy-first UX
+  * data lifecycle
+* Avoids:
+
+  * storing real sensitive data
+  * legal/privacy risks
+* Supports your pitch:
+
+> “We don’t collect more data — we protect what you already have.”
