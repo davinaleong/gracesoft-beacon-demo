@@ -1,58 +1,101 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# GraceSoft Beacon Lite
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+GraceSoft Beacon Lite is a privacy-first demo app for secure intake messages.
 
-## About Laravel
+It is designed for client demonstrations where teams need to show:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Temporary message submission with optional attachment
+- Admin-only review and download flow
+- Automatic lifecycle cleanup for retained demo data
+- Clear trust language with no analytics tracking behavior
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Laravel 13
+- PHP 8.5
+- Tailwind CSS 4
+- Pest 4
 
-## Learning Laravel
+## Main Flows
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Public Submission
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- URL: /submit
+- Optional fields: name, email
+- Required field: message
+- Optional file upload: pdf, jpg, jpeg, png up to 2 MB
+- Honeypot field enabled to reduce spam
+- Submission route is rate limited
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### Admin Access
 
-## Agentic Development
+- Login URL: /admin/login
+- Dashboard URL: /admin/submissions
+- Detail URL: /admin/submissions/{submission}
+- File download URL: /admin/files/{submission}
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+Demo seeded account:
 
-```bash
-composer require laravel/boost --dev
+- Email: admin@beacon-demo.test
+- Password: password
 
-php artisan boost:install
-```
+## Data Retention
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Retention is configurable for meeting demos.
 
-## Contributing
+- Environment variable: DEMO_RETENTION_MINUTES
+- Default: 1440 (24 hours)
+- Config source: [config/beacon.php](config/beacon.php)
+- Expiry assignment on create: [app/Http/Controllers/SubmissionController.php](app/Http/Controllers/SubmissionController.php)
+- Cleanup command: [app/Console/Commands/BeaconCleanupCommand.php](app/Console/Commands/BeaconCleanupCommand.php)
+- Scheduler: [routes/console.php](routes/console.php)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Important behavior:
 
-## Code of Conduct
+- New submissions use the current retention value when created.
+- Existing rows keep their already stored expires_at timestamp.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Quick Start
 
-## Security Vulnerabilities
+1. Install dependencies
+	- composer install
+	- npm install
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2. Environment setup
+	- copy .env.example to .env
+	- set DB credentials
+	- set DEMO_RETENTION_MINUTES as needed for your demo
 
-## License
+3. App key and database
+	- php artisan key:generate
+	- php artisan migrate --seed
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. Frontend assets
+	- npm run dev
+
+5. Run app
+	- php artisan serve
+
+## Useful Commands
+
+- Run tests:
+  - php artisan test --compact
+
+- Run cleanup now:
+  - php artisan beacon:cleanup
+
+- If config is cached and .env was changed:
+  - php artisan config:clear
+
+## Rate Limits
+
+Configured in [app/Providers/AppServiceProvider.php](app/Providers/AppServiceProvider.php):
+
+- submission: 5 requests per minute per IP
+- admin-login: 5 requests per minute per IP
+
+## Notes For Demo Operators
+
+- The app is intended for demo data only.
+- Do not submit sensitive personal information.
+- The UI displays current retention language based on config.
