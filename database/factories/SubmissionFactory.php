@@ -17,12 +17,14 @@ class SubmissionFactory extends Factory
      */
     public function definition(): array
     {
+        $retentionMinutes = max((int) config('beacon.retention_minutes', 24 * 60), 1);
+
         return [
             'name' => fake()->boolean(70) ? fake()->name() : null,
             'email' => fake()->boolean(65) ? fake()->safeEmail() : null,
             'message' => fake()->paragraphs(2, true),
             'file_path' => null,
-            'expires_at' => now()->addHours(fake()->numberBetween(6, 24)),
+            'expires_at' => now()->addMinutes($retentionMinutes),
         ];
     }
 }
