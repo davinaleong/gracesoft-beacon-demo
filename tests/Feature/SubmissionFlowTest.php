@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Storage;
 
 uses(RefreshDatabase::class);
 
-test('submit page is accessible', function () {
-    $this->get(route('submit.create'))->assertSuccessful();
+test('submit page redirects to landing demo form', function () {
+    $this->get(route('submit.create'))->assertRedirect('/#demo-form');
 });
 
 test('visitor can create a submission with attachment', function () {
@@ -37,7 +37,7 @@ test('visitor can create a submission with attachment', function () {
 });
 
 test('submission requires a message and rejects invalid file type', function () {
-    $response = $this->from(route('submit.create'))->post(route('submit.store'), [
+    $response = $this->from(route('landing'))->post(route('submit.store'), [
         'name' => 'Demo User',
         'email' => 'demo@example.com',
         'message' => '',
@@ -45,7 +45,7 @@ test('submission requires a message and rejects invalid file type', function () 
         'website' => '',
     ]);
 
-    $response->assertRedirect(route('submit.create'));
+    $response->assertRedirect(route('landing'));
     $response->assertSessionHasErrors(['message', 'attachment']);
 });
 

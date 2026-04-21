@@ -42,7 +42,7 @@
                         Back
                     </a>
                 @else
-                    <a href="{{ route('submit.create') }}" class="gs-btn-outline">
+                    <a href="{{ route('landing') }}#demo-form" class="gs-btn-outline">
                         Demo Form
                     </a>
                     <a href="{{ route('admin.login') }}" class="gs-btn-outline">

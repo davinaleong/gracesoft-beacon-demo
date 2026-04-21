@@ -32,7 +32,7 @@
                 <div class="gs-card p-6 text-slate-900 shadow-2xl ring-1 ring-black/10 sm:p-7">
                     <div class="mb-5 flex items-start justify-between gap-3">
                         <img src="{{ asset('wm.svg') }}" alt="GraceSoft HQ" class="h-10 w-auto" />
-                        <a href="{{ route('submit.create') }}"
+                        <a href="{{ route('landing') }}#demo-form"
                             class="gs-btn-outline-brand px-3 py-1 text-xs uppercase tracking-wide">
                             Back
                         </a>

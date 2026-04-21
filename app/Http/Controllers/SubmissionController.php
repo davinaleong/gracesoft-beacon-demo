@@ -16,11 +16,6 @@ class SubmissionController extends Controller
         return view('landing', $this->formContext());
     }
 
-    public function create(): View
-    {
-        return view('submit.create', $this->formContext());
-    }
-
     public function store(StoreSubmissionRequest $request): RedirectResponse
     {
         $validated = $request->validated();
@@ -52,7 +47,7 @@ class SubmissionController extends Controller
             'expires_at' => now()->addMinutes(max($retentionMinutes, 1)),
         ]);
 
-        return to_route('submit.create')->with('submission_created', [
+        return back()->with('submission_created', [
             'id' => $submission->id,
             'expires_at' => $submission->expires_at->toDayDateTimeString(),
         ]);
