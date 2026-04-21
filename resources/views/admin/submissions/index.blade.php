@@ -91,7 +91,7 @@
                                     <td class="px-3 py-2">{{ $submission->name ?: 'Anonymous' }}</td>
                                     <td class="px-3 py-2">{{ $submission->email ?: 'Not provided' }}</td>
                                     <td class="max-w-70 truncate px-3 py-2">{{ $submission->message }}</td>
-                                    <td class="px-3 py-2">{{ $submission->created_at->format('M d, H:i') }}</td>
+                                    <td class="px-3 py-2">{{ $submission->created_at->format('d M Y') }}</td>
                                     <td class="px-3 py-2">
                                         <span
                                             class="rounded-full px-2 py-1 text-xs font-semibold {{ $isExpired ? 'bg-slate-200 text-slate-700' : 'bg-emerald-100 text-emerald-700' }}">

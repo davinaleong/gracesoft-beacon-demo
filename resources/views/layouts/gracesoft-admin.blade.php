@@ -73,7 +73,7 @@
             <div class="px-4 py-4 sm:px-6">
                 <div
                     class="mb-4 inline-flex rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700">
-                    Reporting month: {{ now()->format('Y-m') }}
+                    Reporting month: {{ now()->format('d M Y') }}
                 </div>
 
                 @yield('content')

@@ -25,7 +25,7 @@
         <article class="rounded-md border border-slate-300 bg-white p-5">
             <h2 class="text-3xl font-bold text-[#352AA6]">Submission {{ str($submission->id)->limit(8, '') }}</h2>
             <p class="mt-1 text-sm text-slate-600">This record will be deleted at:
-                {{ $submission->expires_at->format('M d, Y H:i') }}</p>
+                {{ $submission->expires_at->format('d M Y') }}</p>
 
             <dl class="mt-5 grid gap-4 sm:grid-cols-2">
                 <div class="rounded-md border border-slate-200 bg-slate-50 p-3">
@@ -38,12 +38,12 @@
                 </div>
                 <div class="rounded-md border border-slate-200 bg-slate-50 p-3">
                     <dt class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Created At</dt>
-                    <dd class="mt-1 text-sm font-medium text-slate-900">{{ $submission->created_at->format('M d, Y H:i') }}
+                    <dd class="mt-1 text-sm font-medium text-slate-900">{{ $submission->created_at->format('d M Y') }}
                     </dd>
                 </div>
                 <div class="rounded-md border border-slate-200 bg-slate-50 p-3">
                     <dt class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Expiry Time</dt>
-                    <dd class="mt-1 text-sm font-medium text-slate-900">{{ $submission->expires_at->format('M d, Y H:i') }}
+                    <dd class="mt-1 text-sm font-medium text-slate-900">{{ $submission->expires_at->format('d M Y') }}
                     </dd>
                 </div>
             </dl>

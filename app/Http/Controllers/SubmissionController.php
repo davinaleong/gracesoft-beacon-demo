@@ -49,7 +49,7 @@ class SubmissionController extends Controller
 
         return back()->with('submission_created', [
             'id' => $submission->id,
-            'expires_at' => $submission->expires_at->toDayDateTimeString(),
+            'expires_at' => $submission->expires_at->format('d M Y'),
         ]);
     }
 
