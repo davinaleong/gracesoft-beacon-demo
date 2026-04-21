@@ -11,9 +11,14 @@ use Illuminate\View\View;
 
 class SubmissionController extends Controller
 {
+    public function landing(): View
+    {
+        return view('landing', $this->formContext());
+    }
+
     public function create(): View
     {
-        return view('submit.create');
+        return view('submit.create', $this->formContext());
     }
 
     public function store(StoreSubmissionRequest $request): RedirectResponse
@@ -51,5 +56,24 @@ class SubmissionController extends Controller
             'id' => $submission->id,
             'expires_at' => $submission->expires_at->toDayDateTimeString(),
         ]);
+    }
+
+    /**
+     * @return array{retentionLabel: string}
+     */
+    private function formContext(): array
+    {
+        $retentionMinutes = max((int) config('beacon.retention_minutes', 24 * 60), 1);
+        $retentionHours = intdiv($retentionMinutes, 60);
+
+        $retentionLabel = $retentionMinutes < 60
+            ? $retentionMinutes.' minute'.($retentionMinutes === 1 ? '' : 's')
+            : ($retentionMinutes % 60 === 0
+                ? $retentionHours.' hour'.($retentionHours === 1 ? '' : 's')
+                : $retentionMinutes.' minutes');
+
+        return [
+            'retentionLabel' => $retentionLabel,
+        ];
     }
 }

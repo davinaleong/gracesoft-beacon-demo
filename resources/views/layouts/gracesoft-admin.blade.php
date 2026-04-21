@@ -23,43 +23,19 @@
 
             <nav class="space-y-5 p-4 text-sm">
                 <div>
-                    <p class="px-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-300">Dashboard</p>
+                    <p class="px-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-300">Workspace</p>
                     <a href="{{ route('admin.submissions.index') }}"
                         class="mt-2 block rounded-md px-2.5 py-2 font-medium transition {{ request()->routeIs('admin.submissions.*') ? 'bg-indigo-400/40 text-white' : 'hover:bg-indigo-400/20' }}">
-                        Dashboard
+                        Submissions
                     </a>
                 </div>
 
                 <div class="space-y-2">
-                    <p class="px-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-300">Identity &
-                        Security</p>
-                    <a href="#"
-                        class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Notifications</a>
-                    <a href="#" class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Recent
-                        Activity</a>
-                    <a href="#"
-                        class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Analytics</a>
-                    <a href="#"
-                        class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Insights</a>
-                </div>
-
-                <div class="space-y-2">
-                    <p class="px-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-300">CRM</p>
-                    <a href="#"
-                        class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Clients</a>
-                    <a href="#"
-                        class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Enquiries</a>
-                    <a href="#" class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Notes</a>
-                </div>
-
-                <div class="space-y-2">
-                    <p class="px-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-300">Billing</p>
-                    <a href="#"
-                        class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Orders</a>
-                    <a href="#"
-                        class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Invoices</a>
-                    <a href="#"
-                        class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Payments</a>
+                    <p class="px-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-indigo-300">Controls</p>
+                    <a href="{{ route('admin.submissions.index') }}#privacy-controls"
+                        class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Privacy-first</a>
+                    <a href="{{ route('admin.submissions.index') }}#security-controls"
+                        class="block rounded-md px-2.5 py-1.5 transition hover:bg-indigo-400/20">Security-first</a>
                 </div>
             </nav>
 

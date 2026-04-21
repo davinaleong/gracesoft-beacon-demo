@@ -20,7 +20,7 @@
     </div>
 
     <header class="gs-shell flex items-center justify-between py-5 lg:px-8">
-        <a href="{{ route('submit.create') }}" class="inline-flex items-center" aria-label="GraceSoft Beacon Lite Home">
+        <a href="{{ route('landing') }}" class="inline-flex items-center" aria-label="GraceSoft Beacon Lite Home">
             <img src="{{ asset('wm.svg') }}" alt="GraceSoft Beacon Lite" class="h-10 w-auto" />
         </a>
 
@@ -38,10 +38,13 @@
                 </form>
             @else
                 @if (request()->routeIs('admin.login'))
-                    <a href="{{ route('submit.create') }}" class="gs-btn-outline">
+                    <a href="{{ route('landing') }}" class="gs-btn-outline">
                         Back
                     </a>
                 @else
+                    <a href="{{ route('submit.create') }}" class="gs-btn-outline">
+                        Demo Form
+                    </a>
                     <a href="{{ route('admin.login') }}" class="gs-btn-outline">
                         Admin Login
                     </a>

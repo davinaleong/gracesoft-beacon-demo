@@ -5,9 +5,7 @@ use App\Http\Controllers\Admin\AdminSubmissionController;
 use App\Http\Controllers\SubmissionController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return redirect()->route('submit.create');
-});
+Route::get('/', [SubmissionController::class, 'landing'])->name('landing');
 
 Route::get('/submit', [SubmissionController::class, 'create'])->name('submit.create');
 Route::post('/submit', [SubmissionController::class, 'store'])
